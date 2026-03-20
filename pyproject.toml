@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "file-handler"
+version = "0.1.0"
+description = "Lightweight file I/O utility with automatic format detection."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+  { name = "ry-yoshida" }
+]
+dependencies = [
+  "numpy",
+  "h5py",
+  "PyYAML"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/ry-yoshida/FileHandler"
+"Bug Tracker" = "https://github.com/ry-yoshida/FileHandler/issues"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
