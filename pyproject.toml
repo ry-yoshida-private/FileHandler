@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "file-handler"
 version = "0.1.0"
-description = "Lightweight file I/O utility with automatic format detection."
+description = "Lightweight file I/O utilities for structured data, text, and XML."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
@@ -15,7 +15,13 @@ authors = [
 dependencies = [
   "numpy",
   "h5py",
-  "PyYAML"
+  "PyYAML",
+]
+
+[project.optional-dependencies]
+dev = [
+  "basedpyright>=1.39",
+  "pytest>=8.0",
 ]
 
 [project.urls]
@@ -30,3 +36,14 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 file_handler = ["py.typed"]
+txt_writer = ["py.typed"]
+xml_handler = ["py.typed"]
+
+[tool.basedpyright]
+include = ["src", "tests"]
+pythonVersion = "3.10"
+typeCheckingMode = "strict"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

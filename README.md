@@ -2,15 +2,18 @@
 
 ## Overview
 
-Lightweight utility for reading and writing common file formats with one API.
-`FileHandler` chooses the serializer automatically from the file extension.
+Lightweight Python utilities for common file I/O tasks:
 
-See the [package README](src/file_handler/README.md) for module details.
+| Package | Purpose |
+|---------|---------|
+| [`file_handler`](src/file_handler/README.md) | Save and load JSON, Pickle, YAML, and HDF5 with automatic format detection |
+| [`txt_writer`](src/txt_writer/README.md) | Append or overwrite text files with buffered flushing |
+| [`xml_handler`](src/xml_handler/README.md) | Parse XML and read tag values from nested paths |
 
 ## Requirements
 
-- Python 3.x
-- numpy, h5py, pyyaml
+- Python 3.10+
+- numpy, h5py, PyYAML
 
 ## Setup
 
@@ -18,30 +21,50 @@ See the [package README](src/file_handler/README.md) for module details.
 pip install -r requirements.txt
 ```
 
-## Example
+For development (tests and type checking):
 
-Save and load data with automatic format handling:
+```bash
+pip install -e ".[dev]"
+```
+
+## Examples
+
+### Structured files (`file_handler`)
 
 ```python
-from file_handler.handler import FileHandler
+from file_handler import FileHandler
 
 data = {
     "name": "demo",
-    "values": [1, 2, 3]
+    "values": [1, 2, 3],
 }
 
-# JSON
 FileHandler.save(data, "output/sample.json")
-json_obj = FileHandler.load("output/sample.json")
-print(json_obj)
+loaded = FileHandler.load("output/sample.json")
+```
 
-# Pickle
-FileHandler.save(data, "output/sample.pkl")
-pkl_obj = FileHandler.load("output/sample.pkl")
-print(pkl_obj)
+### Text files (`txt_writer`)
 
-# YAML
-FileHandler.save(data, "output/sample.yaml")
-yaml_obj = FileHandler.load("output/sample.yaml")
-print(yaml_obj)
+```python
+from txt_writer import TxtWriter
+
+with TxtWriter(output_path="output/log.txt", is_reset_enabled=True) as writer:
+    writer.write("line one", is_new_line=True)
+    writer.write("line two", is_new_line=True)
+```
+
+### XML files (`xml_handler`)
+
+```python
+from xml_handler import XMLHandler
+
+handler = XMLHandler.from_path("config/settings.xml")
+version = handler.find("version")
+fps = handler.find_nested_tags(["camera", "fps"])
+```
+
+## Tests
+
+```bash
+pytest
 ```

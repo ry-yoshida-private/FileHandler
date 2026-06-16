@@ -20,6 +20,6 @@ format detection from file extensions.
 |------|------|
 | [handler.py](handler.py) | `FileHandler` implementation (`save`, `load`) |
 | [type.py](type.py) | `FileType` enum and extension-to-type mapping |
-| [__init__.py](__init__.py) | Package export entrypoint |
+| [__init__.py](__init__.py) | Package export entrypoint (`FileHandler`, `FileType`) |
 
 
